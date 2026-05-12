@@ -21,13 +21,15 @@ All `SKILL.md` files in this pack use the same pack-level version.
 Codex:
 
 ```bash
-rsync -a skills/taosecho-etl-* ~/.codex/skills/
+mkdir -p ~/.codex/skills
+cp -R skills/taosecho-etl-* ~/.codex/skills/
 ```
 
 Claude Code:
 
 ```bash
-rsync -a skills/taosecho-etl-* ~/.claude/skills/
+mkdir -p ~/.claude/skills
+cp -R skills/taosecho-etl-* ~/.claude/skills/
 ```
 
 ## Verify

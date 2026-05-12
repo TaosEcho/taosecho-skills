@@ -14,25 +14,29 @@ Public monorepo for TaosEcho skill packs.
 Install TaosEcho ETL skills into Codex:
 
 ```bash
-rsync -a skills/taosecho-etl-skills/skills/taosecho-etl-* ~/.codex/skills/
+mkdir -p ~/.codex/skills
+cp -R skills/taosecho-etl-skills/skills/taosecho-etl-* ~/.codex/skills/
 ```
 
 Install TaosEcho ETL skills into Claude Code:
 
 ```bash
-rsync -a skills/taosecho-etl-skills/skills/taosecho-etl-* ~/.claude/skills/
+mkdir -p ~/.claude/skills
+cp -R skills/taosecho-etl-skills/skills/taosecho-etl-* ~/.claude/skills/
 ```
 
 Install Harness Setup into Codex:
 
 ```bash
-rsync -a skills/harness-setup-skill/harness-setup ~/.codex/skills/
+mkdir -p ~/.codex/skills
+cp -R skills/harness-setup-skill/harness-setup ~/.codex/skills/harness-setup
 ```
 
 Install Harness Setup into Claude Code:
 
 ```bash
-rsync -a skills/harness-setup-skill/harness-setup ~/.claude/skills/
+mkdir -p ~/.claude/skills
+cp -R skills/harness-setup-skill/harness-setup ~/.claude/skills/harness-setup
 ```
 
 ## Verify
