@@ -1,6 +1,6 @@
 # Harness State File Template
 
-Reference version: 0.5.2
+Reference version: 0.5.3
 
 Use this template when creating or updating a harness state file.
 

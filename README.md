@@ -41,7 +41,7 @@ Preview install actions:
 | Package | Version | Path | Purpose |
 |---|---:|---|---|
 | TaosEcho ETL Skills | `2.2.2` | `skills/taosecho-etl-skills` | Host-neutral product analysis through normalize-first ETL, `state.md`, analysis skills, and report generation. |
-| Harness Setup Skill | `0.5.2` | `skills/harness-setup-skill` | Durable task harness setup for long-running, high-risk, or multi-agent work. |
+| Harness Setup Skill | `0.5.3` | `skills/harness-setup-skill` | Durable task harness setup for long-running, high-risk, or multi-agent work. |
 
 ## Manual Install
 
@@ -97,7 +97,7 @@ python3 skills/harness-setup-skill/harness-setup/scripts/preflight.py /path/to/p
 
 Start product analysis with `taosecho-etl-product`. Raw data enters `taosecho-etl-normalize`, analysis skills read `state.md`, and `taosecho-etl-report` produces the final report.
 
-Start durable long-running work with `harness-setup`. It creates task state, verification gates, recovery paths, and closeout paths.
+Start durable long-running work with `harness-setup`. It creates task state, verification gates, recovery paths, closeout paths, and a short Harness Engineering explanation for concept questions.
 
 ## Repository Layout
 

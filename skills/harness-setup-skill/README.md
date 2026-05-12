@@ -2,6 +2,8 @@
 
 `harness-setup` initializes a task harness before long-running, complex, multi-tool, multi-agent, or high-risk work.
 
+Harness Engineering means designing the operating frame around an AI task: context, tools, state, verification, recovery, and handoff. The setup skill builds that frame first; the executing agent then runs the task inside it.
+
 It creates a task harness with:
 
 - setup, update, resume, and closeout modes
@@ -107,7 +109,7 @@ The skill records an activation decision. When entrypoint wire-up is selected, i
 
 ## Version
 
-0.5.2
+0.5.3
 
 ## License
 

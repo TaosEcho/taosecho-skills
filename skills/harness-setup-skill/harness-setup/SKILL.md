@@ -1,6 +1,6 @@
 ---
 name: harness-setup
-version: "0.5.2"
+version: "0.5.3"
 allowed-tools:
   - Read
   - Write
@@ -40,12 +40,17 @@ This skill initializes the harness. The executing agent and project tools operat
 
 Combine prompt clarity, context supply, state tracking, verification gates, recovery, and handoff. Downstream tools and skills are user-directed phase tools.
 
+## Concept Reference
+
+When the user asks what a harness is, what Harness Engineering means, why setup comes before execution, or how this skill differs from a normal plan, read `references/harness-engineering.md` before answering. Keep the explanation short, then return to the setup protocol.
+
 ## Trigger Triage
 
 Classify the task before designing the harness:
 
 | Signal | Route |
 |---|---|
+| Concept question about harness or Harness Engineering | Read `references/harness-engineering.md` |
 | Code feature, bug, refactor, app workflow | Read `references/coding.md` |
 | Research, report, market/technical analysis | Read `references/research.md` |
 | Page, prototype, deck-like web experience, design workflow | Read `references/design-prototype.md` |

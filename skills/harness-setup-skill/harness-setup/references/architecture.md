@@ -1,6 +1,6 @@
 # Production Agent Harness Architecture
 
-Reference version: 0.5.2
+Reference version: 0.5.3
 
 Use for agent runtimes, long-running autonomous tasks, multi-tool workflows, or production-grade harness design.
 

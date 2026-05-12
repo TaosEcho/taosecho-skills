@@ -1,6 +1,6 @@
 # Harness Protocols
 
-Reference version: 0.5.2
+Reference version: 0.5.3
 
 Use this file with `SKILL.md` for setup, update, resume, closeout, template assembly, evidence, and reference integration.
 

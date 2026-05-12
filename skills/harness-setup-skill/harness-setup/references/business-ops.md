@@ -1,6 +1,6 @@
 # Business Ops Harness
 
-Reference version: 0.5.2
+Reference version: 0.5.3
 
 Use for operating systems, thread workflows, governance, content pipelines, marketplace workflows, or repeatable business processes.
 

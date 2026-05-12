@@ -1,6 +1,6 @@
 # Design Prototype Harness
 
-Reference version: 0.5.2
+Reference version: 0.5.3
 
 Use for page design, dashboard prototypes, mobile screens, website drafts, design/prototype tools, and deck-style web presentations.
 

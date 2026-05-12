@@ -2,6 +2,11 @@
 
 ## 2026-05-12
 
+- Updated Harness Setup skill to `0.5.3`.
+- Added a Harness Engineering concept reference and README explanation for harness concept questions.
+
+## 2026-05-12
+
 - Updated TaosEcho ETL skill pack to `2.2.2`.
 - Added spoken-product startup, first-turn pressure handling, and compact normalize receipts.
 - Expanded ETL verifier for the v2 pressure-test regression cases.

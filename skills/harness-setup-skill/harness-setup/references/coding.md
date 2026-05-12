@@ -1,6 +1,6 @@
 # Coding Harness
 
-Reference version: 0.5.2
+Reference version: 0.5.3
 
 Use for features, bugs, refactors, app workflows, tests, and repo maintenance.
 
