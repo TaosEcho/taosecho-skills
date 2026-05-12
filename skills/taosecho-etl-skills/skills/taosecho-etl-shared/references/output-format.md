@@ -25,6 +25,14 @@
 建议先看：
 ```
 
+When auto-run is enabled, use:
+
+```text
+数据覆盖：
+关键限制：
+已进入分析：
+```
+
 Data coverage header:
 
 ```text
@@ -39,3 +47,7 @@ Data coverage header:
 主要风险：
 下一步：
 ```
+
+## Brief Mode
+
+When `response_mode=brief`, put the main answer first and keep the first block within 3 lines. Tables stay optional unless the user asks for detail.

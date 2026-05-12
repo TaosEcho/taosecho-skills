@@ -12,7 +12,7 @@ TaosEcho ETL is a host-neutral product-analysis skill pack.
 
 ## Version
 
-Current pack version: `2.2.0`
+Current pack version: `2.2.1`
 
 All `SKILL.md` files in this pack use the same pack-level version.
 

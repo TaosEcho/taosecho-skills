@@ -4,7 +4,7 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "../..");
 const prefix = "taosecho-etl-";
-const version = "2.2.0";
+const version = "2.2.1";
 
 const expectedSkills = [
   "taosecho-etl-product",
@@ -94,6 +94,7 @@ check("shared changelog exists", exists(path.join(shared, "CHANGELOG.md")));
 check("shared migration guide exists", exists(path.join(shared, "MIGRATION.md")));
 check("changelog documents 2.1.0", safeRead(path.join(shared, "CHANGELOG.md")).includes("## 2.1.0"));
 check("changelog documents 2.2.0", safeRead(path.join(shared, "CHANGELOG.md")).includes("## 2.2.0"));
+check("changelog documents 2.2.1", safeRead(path.join(shared, "CHANGELOG.md")).includes("## 2.2.1"));
 check("migration guide maps source.type", safeRead(path.join(shared, "MIGRATION.md")).includes("source.type") && safeRead(path.join(shared, "MIGRATION.md")).includes("structured"));
 
 for (const name of expectedSkills) {
@@ -141,6 +142,7 @@ check("normalize output header is v2.1", normalize.includes("数据项 | 目标�
 check("normalize handles user-provided data only", normalize.includes("用户已经提供的数据") && normalize.includes("外部工具或 MCP"));
 check("normalize includes post-mapping platform sniffing", normalize.includes("平台嗅探") && normalize.includes("后置"));
 check("normalize includes mixed source merge", normalize.includes("多源合并") && normalize.includes('source.type = "mixed"'));
+check("normalize includes auto-run recommendation", normalize.includes("recommended_next.auto_run=true") && normalize.includes("目标 skill 队列"));
 for (const shape of ["structured", "tabular", "textual", "document", "spoken"]) {
   check(`normalize includes shape ${shape}`, normalize.includes(`${shape}：`) || normalize.includes(`${shape}:`));
 }
@@ -165,11 +167,26 @@ for (const file of shapeRefs) {
 const product = safeRead(path.join(root, "taosecho-etl-product", "SKILL.md"));
 check("product routes missing data to normalize", product.includes("taosecho-etl-normalize"));
 check("product includes any-form startup", product.includes("任意形态数据") || product.includes("任一种数据形态"));
-check("product includes five data forms", ["结构化", "表格", "评论文本", "调研文档", "关键指标描述"].every((token) => product.includes(token)));
+check("product includes user-friendly data forms", ["ASIN", "商品链接", "产品名", "20 条以上评论", "竞品表格", "Listing 文案", "运营记录"].every((token) => product.includes(token)));
 check("product keeps host-neutral prompt", product.includes("host-neutral") && product.includes("纯文本问询"));
+check("product includes fastest start path", product.includes("最快启动方式") && product.includes("ASIN、商品链接或产品名"));
+check("product includes clear-goal auto-run", product.includes("完整数据") && product.includes("自动推进规则"));
+check("product tracks brief mode", product.includes("response_mode=brief"));
+check("product tracks impatient state", product.includes("interaction_state=impatient"));
 for (const phrase of ["sorftime 已连接", "我先读取 Amazon 数据", "当前会话没有检测到 sorftime MCP", "sorftime MCP、Helium10"]) {
   check(`product avoids binding phrase ${phrase}`, !product.includes(phrase));
 }
+
+const routing = safeRead(path.join(sharedRefDir, "routing.md"));
+check("routing includes auto-run rules", routing.includes("## Auto-Run Rules") && routing.includes("without asking for confirmation"));
+check("routing includes empty-start rules", routing.includes("## Empty-Start Rules") && routing.includes("ASIN、商品链接或产品名"));
+check("routing includes multi-turn state", routing.includes("## Multi-Turn State") && routing.includes("interaction_state=impatient"));
+
+const intakeState = safeRead(path.join(sharedRefDir, "intake-state.md"));
+check("intake-state documents recommended_next", intakeState.includes("recommended_next:") && intakeState.includes("auto_run"));
+
+const outputFormat = safeRead(path.join(sharedRefDir, "output-format.md"));
+check("output-format includes brief mode", outputFormat.includes("## Brief Mode") && outputFormat.includes("response_mode=brief"));
 
 for (const name of analysisSkills) {
   const skill = safeRead(path.join(root, name, "SKILL.md"));
@@ -260,7 +277,7 @@ const reportExamples = [
 check("report skill exists", exists(reportDir));
 check("report SKILL.md exists", exists(path.join(reportDir, "SKILL.md")));
 const reportSkillContent = safeRead(path.join(reportDir, "SKILL.md"));
-check("report version is 2.2.0", versionOf(reportSkillContent) === "2.2.0");
+check("report version is 2.2.1", versionOf(reportSkillContent) === "2.2.1");
 for (const ref of reportRefs) {
   check(`report ${ref} exists`, exists(path.join(reportDir, "references", ref)));
 }

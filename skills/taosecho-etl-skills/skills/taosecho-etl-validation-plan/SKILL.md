@@ -1,7 +1,7 @@
 ---
 name: taosecho-etl-validation-plan
 description: Use when state.md exists and analysis asks what to verify next before development, sampling, launch, or investment.
-version: 2.2.0
+version: 2.2.1
 ---
 
 

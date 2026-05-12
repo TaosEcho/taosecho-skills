@@ -1,7 +1,7 @@
 ---
 name: taosecho-etl-product-definition
 description: Use when state.md exists and analysis asks how to define requirements, specifications, feature priority, or product boundaries.
-version: 2.2.0
+version: 2.2.1
 ---
 
 

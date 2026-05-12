@@ -1,5 +1,13 @@
 # TaosEcho ETL Skill Pack Changelog
 
+## 2.2.1
+
+- Added auto-run routing for users who provide usable data and a clear output request in the same turn.
+- Improved empty-start prompts with the fastest path: ASIN, product link, or product name.
+- Added multi-turn interaction state for brief mode, impatient users, goal switches, and report requests.
+- Updated normalize to write `recommended_next.auto_run`, `response_mode`, and queued target skills.
+- Added brief-mode output guidance for users who ask for simpler or faster answers.
+
 ## 2.2.0
 
 - Added the 13th skill: `taosecho-etl-report`.

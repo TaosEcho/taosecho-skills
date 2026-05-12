@@ -1,7 +1,7 @@
 ---
 name: taosecho-etl-ops-feedback
 description: Use when state.md exists and analysis asks what operations, ads, ranking, rating, returns, service, traffic, or seller metrics mean.
-version: 2.2.0
+version: 2.2.1
 ---
 
 

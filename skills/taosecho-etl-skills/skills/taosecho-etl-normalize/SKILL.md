@@ -1,7 +1,7 @@
 ---
 name: taosecho-etl-normalize
 description: Use when product analysis needs raw user-provided data cleaned into TaosEcho unified-data, regardless of data source or platform.
-version: 2.2.0
+version: 2.2.1
 ---
 
 # TaosEcho ETL 数据规范层
@@ -37,6 +37,7 @@ version: 2.2.0
 7. 输出 unified-data。
 8. 写入 `tasks/YYYYMMDD-{product.id}/state.md`。
 9. 推荐下一个分析 skill。
+10. 用户已给完整数据且目标明确时，写入 `recommended_next.auto_run=true` 和目标 skill 队列。
 
 ## 数据形态识别（5 种）
 
@@ -77,8 +78,13 @@ version: 2.2.0
 
 ## 用户没数据时
 
-提示用户提供数据，并列举 5 种形态示例。可选地告知用户：
-“如果你有 sorftime / Helium10 / Keepa 等数据获取工具，可以用它们拉取数据后给我清洗。”
+先追问具体对象，再给最快路径：
+
+```text
+你说的是哪个产品？给我一个 ASIN、商品链接或产品名就能开始。
+
+也可以粘贴 20 条以上评论、一个竞品表格、Listing 文案、页面截图文字、退货/广告/客服记录。
+```
 
 工具调用由用户自行执行或显式授权。normalize 接收工具产出的数据并做清洗。
 
@@ -97,3 +103,24 @@ version: 2.2.0
 ```
 
 `建议先看` 按 routing.md 推荐 1 个分析 skill 和原因。
+
+## 自动推进
+
+当同时满足以下条件时，normalize 输出后继续进入推荐 skill：
+
+- product.id、product.name、listing、reviews、competitors、market、user_provided 任一主数据块可用
+- evidence.level 为 判断级 或 强判断，或用户明确接受线索级快速判断
+- 用户已经提出明确目标，例如“完整分析”“是否值得做”“给开发建议”“购买原因”“竞品机会”“输出报告”
+
+自动推进时在 state.md 写入：
+
+```yaml
+recommended_next:
+  auto_run: true
+  response_mode: brief | standard
+  queue:
+    - taosecho-etl-buy-reason
+    - taosecho-etl-usage-scene
+```
+
+数据只够线索级时，仍可自动输出线索级观察；进入 `taosecho-etl-dev-decision` 前先提示关键证据缺口。

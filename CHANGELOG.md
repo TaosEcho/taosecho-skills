@@ -1,5 +1,12 @@
 # Changelog
 
+## 2026-05-12
+
+- Updated TaosEcho ETL skill pack to `2.2.1`.
+- Added auto-run flow for clear-goal users who provide usable data.
+- Improved empty-start and multi-turn brief-mode behavior.
+- Expanded ETL verifier from 450 to 461 checks.
+
 ## 2026-05-11
 
 - Created the public TaosEcho skills monorepo.

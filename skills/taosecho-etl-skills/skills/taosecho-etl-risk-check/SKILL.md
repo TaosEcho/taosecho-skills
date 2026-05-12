@@ -1,7 +1,7 @@
 ---
 name: taosecho-etl-risk-check
 description: Use when state.md exists and analysis asks where the product may fail, cause returns, draw low ratings, or need verification.
-version: 2.2.0
+version: 2.2.1
 ---
 
 

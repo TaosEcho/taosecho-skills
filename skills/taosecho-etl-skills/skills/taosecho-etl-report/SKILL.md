@@ -1,7 +1,7 @@
 ---
 name: taosecho-etl-report
 description: Use when state.md contains TaosEcho ETL analysis results and the user wants a complete report (Markdown by default, optional PDF/DOCX/HTML) for delivery, archival, or stakeholder review.
-version: 2.2.0
+version: 2.2.1
 ---
 
 # TaosEcho ETL 报告生成

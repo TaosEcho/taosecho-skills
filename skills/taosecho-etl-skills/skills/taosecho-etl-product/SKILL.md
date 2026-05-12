@@ -1,7 +1,7 @@
 ---
 name: taosecho-etl-product
 description: Use when product analysis needs to enter the TaosEcho ETL v2 workflow with any user-provided data, regardless of platform or source.
-version: 2.2.0
+version: 2.2.1
 ---
 
 # TaosEcho ETL 产品分析入口
@@ -22,25 +22,29 @@ version: 2.2.0
 - 用户给任意形态数据（结构化 / 表格 / 文本 / 文档 / 口述）都进入 normalize。
 - 保持 host-neutral 纯文本问询；不要硬依赖 `AskUserQuestion`、`request_user_input` 或 host 专属工具。
 - MCP 调用由用户自行执行或显式授权；入口接收数据后交给 normalize。
+- 用户已经给出完整数据并明确要求输出时，normalize 后按 routing.md 的自动推进规则继续分析，直到交付用户要求的结论或报告。
+- 用户表达“简单点、快点、别太长、直接说结论”时，把 `response_mode=brief` 写入当前上下文，后续输出保持简短。
+- 用户连续追问、催促或施压时，把 `interaction_state=impatient` 写入当前上下文，先给可执行最短路径，再补充证据边界。
 
 ## 空启动话术
 
 ```text
-我可以帮你做产品机会分析。请给我以下任一种数据形态：
+我可以帮你做产品机会分析。最快启动方式是给我一个 ASIN、商品链接或产品名。
 
-1. 结构化数据（JSON / API 响应 / 字段表）
-2. 表格数据（CSV / Excel / Markdown 表格）
-3. 评论文本（粘贴一批用户评论，至少 20 条）
-4. 调研文档（PDF / DOCX 报告）
-5. 关键指标描述（评分、价格、主要反馈）
+也可以直接粘贴这些材料：
+1. 20 条以上评论或差评
+2. 一个竞品表格
+3. Listing 文案、五点或页面截图文字
+4. 退货、广告、客服、成本等运营记录
+5. 你口述的产品想法和已知问题
 
-数据形态越完整，分析等级越高。
-
-如果你接入了 sorftime / Helium10 / Keepa 等数据获取工具，可以用它们拉取后把数据给我清洗。
+你只说“这个产品”时，我需要先知道具体对象：ASIN / 链接 / 产品名 / 图片文字 / 评论文本任选一个。
 ```
 
 ## 只有材料时
 
 ```text
-我看到你给了{材料形态}。为了一次读到位，请同时告诉我：想先看什么、投入阶段、是否有竞品或核心关键词的额外数据。
+我看到你给了{材料形态}。我会先清洗成 state.md。
+如果你已经说清楚目标，我会继续给出对应分析。
+如果目标还没说清楚，请补一句：想看是否值得做、购买原因、使用场景、购买顾虑、竞品机会、页面转化，或完整看一轮。
 ```

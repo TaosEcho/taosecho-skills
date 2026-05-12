@@ -1,7 +1,7 @@
 ---
 name: taosecho-etl-dev-decision
 description: Use when state.md exists and product analysis asks whether to continue, pause, invest, sample, launch, or decide the current stage.
-version: 2.2.0
+version: 2.2.1
 ---
 
 
