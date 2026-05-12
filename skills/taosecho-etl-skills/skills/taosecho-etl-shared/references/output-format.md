@@ -33,6 +33,14 @@ When auto-run is enabled, use:
 已进入分析：
 ```
 
+Default compact receipt for valid input:
+
+```text
+数据已接收（{判断等级}，{来源形态}）。开始分析...
+```
+
+Use the full data coverage table only when the user asks to inspect normalized fields, coverage, or state.md details.
+
 Data coverage header:
 
 ```text

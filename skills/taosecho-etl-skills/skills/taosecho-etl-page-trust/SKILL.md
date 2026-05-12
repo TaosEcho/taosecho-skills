@@ -1,7 +1,7 @@
 ---
 name: taosecho-etl-page-trust
 description: Use when state.md exists and analysis asks how a Listing, page, images, bullets, A+, video, or Q&A should improve trust and conversion.
-version: 2.2.1
+version: 2.2.2
 ---
 
 

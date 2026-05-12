@@ -2,6 +2,12 @@
 
 ## 2026-05-12
 
+- Updated TaosEcho ETL skill pack to `2.2.2`.
+- Added spoken-product startup, first-turn pressure handling, and compact normalize receipts.
+- Expanded ETL verifier for the v2 pressure-test regression cases.
+
+## 2026-05-12
+
 - Updated TaosEcho ETL skill pack to `2.2.1`.
 - Added auto-run flow for clear-goal users who provide usable data.
 - Improved empty-start and multi-turn brief-mode behavior.

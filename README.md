@@ -40,7 +40,7 @@ Preview install actions:
 
 | Package | Version | Path | Purpose |
 |---|---:|---|---|
-| TaosEcho ETL Skills | `2.2.1` | `skills/taosecho-etl-skills` | Host-neutral product analysis through normalize-first ETL, `state.md`, analysis skills, and report generation. |
+| TaosEcho ETL Skills | `2.2.2` | `skills/taosecho-etl-skills` | Host-neutral product analysis through normalize-first ETL, `state.md`, analysis skills, and report generation. |
 | Harness Setup Skill | `0.5.2` | `skills/harness-setup-skill` | Durable task harness setup for long-running, high-risk, or multi-agent work. |
 
 ## Manual Install
@@ -84,7 +84,7 @@ node skills/taosecho-etl-skills/skills/taosecho-etl-shared/scripts/verify-taosec
 Expected result:
 
 ```text
-taosecho etl skill verification passed: 450/450
+taosecho etl skill verification passed: 473/473
 ```
 
 Run Harness Setup preflight against a project:

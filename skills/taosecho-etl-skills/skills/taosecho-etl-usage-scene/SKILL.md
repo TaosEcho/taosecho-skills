@@ -1,7 +1,7 @@
 ---
 name: taosecho-etl-usage-scene
 description: Use when state.md exists and product analysis asks where or how buyers use a product across platform or manual data sources.
-version: 2.2.1
+version: 2.2.2
 ---
 
 

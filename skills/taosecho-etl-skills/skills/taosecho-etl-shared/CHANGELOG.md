@@ -1,5 +1,12 @@
 # TaosEcho ETL Skill Pack Changelog
 
+## 2.2.2
+
+- Treat natural-language product descriptions as valid spoken input and route them into normalize as clue-level evidence.
+- Explain ASIN on first mention and give product link, product name, and one-sentence product description as equal quick-start paths.
+- Add first-turn pressure handling for absolute-conclusion requests without data.
+- Compact normalize output to a one-line receipt by default and show coverage tables on request.
+
 ## 2.2.1
 
 - Added auto-run routing for users who provide usable data and a clear output request in the same turn.

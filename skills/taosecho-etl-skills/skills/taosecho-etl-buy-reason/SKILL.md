@@ -1,7 +1,7 @@
 ---
 name: taosecho-etl-buy-reason
 description: Use when state.md exists and an Amazon, TikTok, Walmart, CSV, text, or mixed-source product analysis asks why buyers purchase or what demand exists.
-version: 2.2.1
+version: 2.2.2
 ---
 
 

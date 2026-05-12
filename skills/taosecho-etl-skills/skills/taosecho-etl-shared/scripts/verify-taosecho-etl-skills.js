@@ -4,7 +4,7 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "../..");
 const prefix = "taosecho-etl-";
-const version = "2.2.1";
+const version = "2.2.2";
 
 const expectedSkills = [
   "taosecho-etl-product",
@@ -95,6 +95,7 @@ check("shared migration guide exists", exists(path.join(shared, "MIGRATION.md"))
 check("changelog documents 2.1.0", safeRead(path.join(shared, "CHANGELOG.md")).includes("## 2.1.0"));
 check("changelog documents 2.2.0", safeRead(path.join(shared, "CHANGELOG.md")).includes("## 2.2.0"));
 check("changelog documents 2.2.1", safeRead(path.join(shared, "CHANGELOG.md")).includes("## 2.2.1"));
+check("changelog documents 2.2.2", safeRead(path.join(shared, "CHANGELOG.md")).includes("## 2.2.2"));
 check("migration guide maps source.type", safeRead(path.join(shared, "MIGRATION.md")).includes("source.type") && safeRead(path.join(shared, "MIGRATION.md")).includes("structured"));
 
 for (const name of expectedSkills) {
@@ -143,6 +144,10 @@ check("normalize handles user-provided data only", normalize.includes("用户已
 check("normalize includes post-mapping platform sniffing", normalize.includes("平台嗅探") && normalize.includes("后置"));
 check("normalize includes mixed source merge", normalize.includes("多源合并") && normalize.includes('source.type = "mixed"'));
 check("normalize includes auto-run recommendation", normalize.includes("recommended_next.auto_run=true") && normalize.includes("目标 skill 队列"));
+check("normalize treats spoken product descriptions as valid input", normalize.includes("口述产品识别") && normalize.includes("品类或产品名") && normalize.includes("价格区间"));
+check("normalize marks spoken product starts clue-level", normalize.includes('source.type = "spoken"') && normalize.includes('evidence.level = "线索级"'));
+check("normalize includes first-turn pressure short path", normalize.includes("施压但缺数据") && normalize.includes("最快路径：给我产品名、商品链接，或一句话描述产品"));
+check("normalize defaults to compact receipt", normalize.includes("数据已接收（{判断等级}，{来源形态}）。开始分析...") && normalize.includes("默认不要展开完整数据覆盖表"));
 for (const shape of ["structured", "tabular", "textual", "document", "spoken"]) {
   check(`normalize includes shape ${shape}`, normalize.includes(`${shape}：`) || normalize.includes(`${shape}:`));
 }
@@ -169,24 +174,31 @@ check("product routes missing data to normalize", product.includes("taosecho-etl
 check("product includes any-form startup", product.includes("任意形态数据") || product.includes("任一种数据形态"));
 check("product includes user-friendly data forms", ["ASIN", "商品链接", "产品名", "20 条以上评论", "竞品表格", "Listing 文案", "运营记录"].every((token) => product.includes(token)));
 check("product keeps host-neutral prompt", product.includes("host-neutral") && product.includes("纯文本问询"));
-check("product includes fastest start path", product.includes("最快启动方式") && product.includes("ASIN、商品链接或产品名"));
+check("product includes fastest start path", product.includes("最快启动方式") && product.includes("ASIN（商品页链接里的 10 位编号）") && product.includes("商品链接或产品名"));
 check("product includes clear-goal auto-run", product.includes("完整数据") && product.includes("自动推进规则"));
 check("product tracks brief mode", product.includes("response_mode=brief"));
 check("product tracks impatient state", product.includes("interaction_state=impatient"));
+check("product explains ASIN and fallback start paths", product.includes("ASIN（商品页链接里的 10 位编号）") && product.includes("不知道 ASIN 也可以开始"));
+check("product treats spoken product descriptions as valid input", product.includes("口述产品描述") && product.includes("默认按线索级处理"));
+check("product includes first-turn pressure path", product.includes("pressure_without_data") && product.includes("施压空启动"));
 for (const phrase of ["sorftime 已连接", "我先读取 Amazon 数据", "当前会话没有检测到 sorftime MCP", "sorftime MCP、Helium10"]) {
   check(`product avoids binding phrase ${phrase}`, !product.includes(phrase));
 }
 
 const routing = safeRead(path.join(sharedRefDir, "routing.md"));
 check("routing includes auto-run rules", routing.includes("## Auto-Run Rules") && routing.includes("without asking for confirmation"));
-check("routing includes empty-start rules", routing.includes("## Empty-Start Rules") && routing.includes("ASIN、商品链接或产品名"));
+check("routing includes empty-start rules", routing.includes("## Empty-Start Rules") && routing.includes("ASIN（商品页链接里的 10 位编号）") && routing.includes("一句话产品描述"));
 check("routing includes multi-turn state", routing.includes("## Multi-Turn State") && routing.includes("interaction_state=impatient"));
+check("routing includes first-turn pressure rules", routing.includes("## First-Turn Pressure Rules") && routing.includes("absolute conclusion"));
+check("routing includes spoken product start", routing.includes("## Spoken Product Start") && routing.includes("source.type=spoken"));
 
 const intakeState = safeRead(path.join(sharedRefDir, "intake-state.md"));
 check("intake-state documents recommended_next", intakeState.includes("recommended_next:") && intakeState.includes("auto_run"));
+check("intake-state documents spoken product starts", intakeState.includes("For spoken product starts") && intakeState.includes("type: spoken"));
 
 const outputFormat = safeRead(path.join(sharedRefDir, "output-format.md"));
 check("output-format includes brief mode", outputFormat.includes("## Brief Mode") && outputFormat.includes("response_mode=brief"));
+check("output-format includes compact normalize receipt", outputFormat.includes("数据已接收（{判断等级}，{来源形态}）。开始分析..."));
 
 for (const name of analysisSkills) {
   const skill = safeRead(path.join(root, name, "SKILL.md"));
@@ -277,7 +289,7 @@ const reportExamples = [
 check("report skill exists", exists(reportDir));
 check("report SKILL.md exists", exists(path.join(reportDir, "SKILL.md")));
 const reportSkillContent = safeRead(path.join(reportDir, "SKILL.md"));
-check("report version is 2.2.1", versionOf(reportSkillContent) === "2.2.1");
+check("report version is 2.2.2", versionOf(reportSkillContent) === "2.2.2");
 for (const ref of reportRefs) {
   check(`report ${ref} exists`, exists(path.join(reportDir, "references", ref)));
 }

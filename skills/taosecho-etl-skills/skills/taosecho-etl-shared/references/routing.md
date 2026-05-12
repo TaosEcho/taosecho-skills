@@ -58,7 +58,7 @@ When the user says "这个产品" or "这个链接" without a concrete object, a
 Fastest path:
 
 ```text
-给我一个 ASIN、商品链接或产品名就能开始。
+给我一个 ASIN（商品页链接里的 10 位编号）、商品链接、产品名，或一句话产品描述就能开始。
 ```
 
 Fallback paths:
@@ -68,6 +68,38 @@ Fallback paths:
 - Listing 文案 / 五点 / 页面截图文字
 - 退货、广告、客服、成本等运营记录
 - 口述产品想法
+
+## First-Turn Pressure Rules
+
+When the first user message asks for an absolute conclusion and provides no concrete product or evidence, route to the shortest input request.
+
+Pressure signals include:
+
+- "直接告诉我能不能做"
+- "给我确定答案"
+- "别问这么多"
+- "马上判断"
+- "就说能不能投"
+
+Use this response:
+
+```text
+判断需要产品信息和证据。最快路径：给我产品名、商品链接，或一句话描述产品；我会先给线索级初判。
+```
+
+Do not show the full data-shape list in this path.
+
+## Spoken Product Start
+
+Natural-language product descriptions are valid input when they include at least two of: product category/name, price range, target user/use case, known selling point, concern, pain point, or problem.
+
+Route:
+
+```text
+product → normalize(source.type=spoken, evidence.level=线索级) → clue-level analysis
+```
+
+The first response after normalize should use a one-line data receipt and continue to analysis when the user goal is clear.
 
 ## Multi-Turn State
 

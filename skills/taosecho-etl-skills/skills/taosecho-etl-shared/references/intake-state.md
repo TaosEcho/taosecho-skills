@@ -38,3 +38,17 @@ recommended_next:
 `auto_run=true` means the entry skill should continue to the queued analysis skill without an extra confirmation turn.
 
 `response_mode=brief` means downstream skills put the answer first and keep the first block within 3 lines.
+
+For spoken product starts, write:
+
+```yaml
+source:
+  type: spoken
+evidence:
+  level: 线索级
+recommended_next:
+  auto_run: true
+  response_mode: brief
+```
+
+Use a one-line data receipt by default. Full field coverage is shown only when the user asks to inspect normalized data.

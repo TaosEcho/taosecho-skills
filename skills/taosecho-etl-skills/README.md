@@ -12,7 +12,7 @@ TaosEcho ETL is a host-neutral product-analysis skill pack.
 
 ## Version
 
-Current pack version: `2.2.1`
+Current pack version: `2.2.2`
 
 All `SKILL.md` files in this pack use the same pack-level version.
 
@@ -49,7 +49,7 @@ node skills/taosecho-etl-shared/scripts/verify-taosecho-etl-skills.js
 Expected result:
 
 ```text
-taosecho etl skill verification passed: 450/450
+taosecho etl skill verification passed: 473/473
 ```
 
 ## Design

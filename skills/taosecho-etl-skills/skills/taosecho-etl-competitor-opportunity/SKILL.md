@@ -1,7 +1,7 @@
 ---
 name: taosecho-etl-competitor-opportunity
 description: Use when state.md exists and analysis asks where competitors are weak, how to differentiate, or what opportunity remains.
-version: 2.2.1
+version: 2.2.2
 ---
 
 

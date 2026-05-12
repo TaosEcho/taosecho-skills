@@ -1,7 +1,7 @@
 ---
 name: taosecho-etl-buy-concern
 description: Use when state.md exists and analysis asks what buyers worry about, why buyers hesitate, or what low-star feedback reveals.
-version: 2.2.1
+version: 2.2.2
 ---
 
 
