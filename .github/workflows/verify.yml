@@ -1,0 +1,49 @@
+name: Verify
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Check install script syntax
+        run: bash -n scripts/install.sh
+
+      - name: List installable skills
+        run: ./scripts/install.sh --list
+
+      - name: Verify TaosEcho ETL pack
+        run: node skills/taosecho-etl-skills/skills/taosecho-etl-shared/scripts/verify-taosecho-etl-skills.js
+
+      - name: Run Harness Setup preflight
+        run: python3 skills/harness-setup-skill/harness-setup/scripts/preflight.py "$PWD"
+
+      - name: Smoke test Codex install
+        run: |
+          tmp="$(mktemp -d)"
+          CODEX_SKILLS_DIR="$tmp/codex-skills" ./scripts/install.sh codex --pack all
+          node "$tmp/codex-skills/taosecho-etl-shared/scripts/verify-taosecho-etl-skills.js"
+          test -d "$tmp/codex-skills/harness-setup"
+          count="$(find "$tmp/codex-skills" -maxdepth 1 -type d -name 'taosecho-etl-*' | wc -l | tr -d ' ')"
+          test "$count" = "14"
+
+      - name: Smoke test Claude Code install
+        run: |
+          tmp="$(mktemp -d)"
+          CLAUDE_SKILLS_DIR="$tmp/claude-skills" ./scripts/install.sh claude-code --pack all
+          node "$tmp/claude-skills/taosecho-etl-shared/scripts/verify-taosecho-etl-skills.js"
+          test -d "$tmp/claude-skills/harness-setup"
+          count="$(find "$tmp/claude-skills" -maxdepth 1 -type d -name 'taosecho-etl-*' | wc -l | tr -d ' ')"
+          test "$count" = "14"
+

@@ -1,5 +1,7 @@
 # TaosEcho Skills
 
+[![Verify](https://github.com/TaosEcho/taosecho-skills/actions/workflows/verify.yml/badge.svg)](https://github.com/TaosEcho/taosecho-skills/actions/workflows/verify.yml)
+
 Public monorepo for TaosEcho skill packs.
 
 ## Quickstart
@@ -18,6 +20,20 @@ Claude Code:
 git clone --depth 1 https://github.com/TaosEcho/taosecho-skills.git
 cd taosecho-skills
 ./scripts/install.sh claude
+```
+
+Install one pack:
+
+```bash
+./scripts/install.sh codex --pack etl
+./scripts/install.sh codex --pack harness
+```
+
+Preview install actions:
+
+```bash
+./scripts/install.sh codex --dry-run
+./scripts/install.sh --list
 ```
 
 ## Packages
@@ -76,6 +92,12 @@ Run Harness Setup preflight against a project:
 ```bash
 python3 skills/harness-setup-skill/harness-setup/scripts/preflight.py /path/to/project
 ```
+
+## Usage
+
+Start product analysis with `taosecho-etl-product`. Raw data enters `taosecho-etl-normalize`, analysis skills read `state.md`, and `taosecho-etl-report` produces the final report.
+
+Start durable long-running work with `harness-setup`. It creates task state, verification gates, recovery paths, and closeout paths.
 
 ## Repository Layout
 
