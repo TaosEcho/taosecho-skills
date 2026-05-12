@@ -2,14 +2,32 @@
 
 Public monorepo for TaosEcho skill packs.
 
+## Quickstart
+
+Codex:
+
+```bash
+git clone --depth 1 https://github.com/TaosEcho/taosecho-skills.git
+cd taosecho-skills
+./scripts/install.sh codex
+```
+
+Claude Code:
+
+```bash
+git clone --depth 1 https://github.com/TaosEcho/taosecho-skills.git
+cd taosecho-skills
+./scripts/install.sh claude
+```
+
 ## Packages
 
-| Package | Path | Purpose |
-|---|---|---|
-| TaosEcho ETL Skills | `skills/taosecho-etl-skills` | Host-neutral product analysis through normalize-first ETL, `state.md`, analysis skills, and report generation. |
-| Harness Setup Skill | `skills/harness-setup-skill` | Durable task harness setup for long-running, high-risk, or multi-agent work. |
+| Package | Version | Path | Purpose |
+|---|---:|---|---|
+| TaosEcho ETL Skills | `2.2.0` | `skills/taosecho-etl-skills` | Host-neutral product analysis through normalize-first ETL, `state.md`, analysis skills, and report generation. |
+| Harness Setup Skill | `0.5.2` | `skills/harness-setup-skill` | Durable task harness setup for long-running, high-risk, or multi-agent work. |
 
-## Install
+## Manual Install
 
 Install TaosEcho ETL skills into Codex:
 
