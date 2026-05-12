@@ -2,7 +2,12 @@
 
 [![Verify](https://github.com/TaosEcho/taosecho-skills/actions/workflows/verify.yml/badge.svg)](https://github.com/TaosEcho/taosecho-skills/actions/workflows/verify.yml)
 
-Public monorepo for TaosEcho skill packs.
+Canonical public monorepo for TaosEcho skill packs.
+
+This repository is the maintained source for TaosEcho public skills. Former standalone repositories are archived compatibility entrypoints:
+
+- `TaosEcho/taosecho-etl-skills`
+- `TaosEcho/harness-setup-skill`
 
 ## Quickstart
 

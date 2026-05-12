@@ -2,6 +2,11 @@
 
 ## 2026-05-12
 
+- Marked `taosecho-skills` as the canonical public monorepo.
+- Archived standalone compatibility repositories: `taosecho-etl-skills` and `harness-setup-skill`.
+
+## 2026-05-12
+
 - Updated Harness Setup skill to `0.5.3`.
 - Added a Harness Engineering concept reference and README explanation for harness concept questions.
 
