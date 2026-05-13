@@ -2,6 +2,11 @@
 
 ## 2026-05-12
 
+- Deleted standalone repositories from GitHub: `taosecho-etl-skills` and `harness-setup-skill`.
+- Kept `taosecho-skills` as the single canonical public repository.
+
+## 2026-05-12
+
 - Marked `taosecho-skills` as the canonical public monorepo.
 - Archived standalone compatibility repositories: `taosecho-etl-skills` and `harness-setup-skill`.
 

@@ -4,10 +4,7 @@
 
 Canonical public monorepo for TaosEcho skill packs.
 
-This repository is the maintained source for TaosEcho public skills. Former standalone repositories are archived compatibility entrypoints:
-
-- `TaosEcho/taosecho-etl-skills`
-- `TaosEcho/harness-setup-skill`
+This repository is the maintained source for TaosEcho public skills.
 
 ## Quickstart
 
