@@ -21,6 +21,8 @@ version: 2.2.2
 - 报告模板：`references/report-templates.md`
 - 格式探测：`references/format-detection.md`
 - 章节模板：`references/chapter-templates.md`
+- 可复制模板：`templates/brief-report.md`、`templates/standard-report.md`、`templates/full-report.md`
+- 报告校验：`scripts/validate-report.js`
 
 ## 前置条件
 
@@ -63,6 +65,20 @@ version: 2.2.2
 - 阶段判断（dev-decision）
 
 未完成的章节标“该项分析未完成，建议先跑 X”，保持章节可追踪。
+
+## 模板使用
+
+- brief 模式优先读取 `templates/brief-report.md`。
+- standard 模式优先读取 `templates/standard-report.md`。
+- full 模式优先读取 `templates/full-report.md`。
+- 模板里的 `{placeholder}` 必须用 state.md 和 analysis_history 的真实字段替换。
+- 生成 Markdown 后，如文件系统可用，运行：
+
+```bash
+node scripts/validate-report.js "tasks/YYYYMMDD-{product.id}/{mode}-report-{date}.md"
+```
+
+校验失败时先修报告，再交付路径。
 
 ## 输出格式
 

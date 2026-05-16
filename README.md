@@ -45,6 +45,8 @@ Preview install actions:
 | TaosEcho ETL Skills | `2.2.2` | `skills/taosecho-etl-skills` | Host-neutral product analysis through normalize-first ETL, `state.md`, analysis skills, and report generation. |
 | Harness Setup Skill | `0.5.3` | `skills/harness-setup-skill` | Durable task harness setup for long-running, high-risk, or multi-agent work. |
 
+Package metadata lives in `manifest.json` at the repository root and in each package directory.
+
 ## Manual Install
 
 Install TaosEcho ETL skills into Codex:
@@ -80,13 +82,15 @@ cp -R skills/harness-setup-skill/harness-setup ~/.claude/skills/harness-setup
 Verify TaosEcho ETL skills:
 
 ```bash
+node scripts/verify-repo.js
 node skills/taosecho-etl-skills/skills/taosecho-etl-shared/scripts/verify-taosecho-etl-skills.js
 ```
 
 Expected result:
 
 ```text
-taosecho etl skill verification passed: 473/473
+repo verification passed: 37/37
+taosecho etl skill verification passed: 476/476
 ```
 
 Run Harness Setup preflight against a project:
@@ -104,10 +108,19 @@ Start durable long-running work with `harness-setup`. It creates task state, ver
 ## Repository Layout
 
 ```text
+manifest.json
+docs/
+  adr/
+  out-of-scope.md
+checklists/
 skills/
   taosecho-etl-skills/
+    manifest.json
+    checklists/
     skills/taosecho-etl-*/
   harness-setup-skill/
+    manifest.json
+    checklists/
     harness-setup/
 ```
 

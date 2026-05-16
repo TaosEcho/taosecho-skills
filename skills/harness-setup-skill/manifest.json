@@ -1,0 +1,12 @@
+{
+  "name": "harness-setup-skill",
+  "version": "0.5.3",
+  "description": "Durable task harness setup for long-running, high-risk, or multi-agent work.",
+  "entry_skill": "harness-setup",
+  "compat": ["codex", "claude-code"],
+  "install_paths": {
+    "codex": "~/.codex/skills/harness-setup",
+    "claude-code": "~/.claude/skills/harness-setup"
+  },
+  "skills": ["harness-setup"]
+}

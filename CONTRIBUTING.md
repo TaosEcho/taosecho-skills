@@ -8,6 +8,7 @@ Run these checks before opening a pull request:
 
 ```bash
 bash -n scripts/install.sh
+node scripts/verify-repo.js
 node skills/taosecho-etl-skills/skills/taosecho-etl-shared/scripts/verify-taosecho-etl-skills.js
 python3 skills/harness-setup-skill/harness-setup/scripts/preflight.py "$PWD"
 ```
@@ -34,6 +35,8 @@ node "$tmp/codex-skills/taosecho-etl-shared/scripts/verify-taosecho-etl-skills.j
 
 - Update README when install, usage, or package layout changes.
 - Update CHANGELOG for public-facing changes.
+- Update manifest files when packages, versions, entry skills, or install paths change.
+- Update ADRs when durable design decisions change.
+- Update out-of-scope docs when package boundaries change.
 - Keep package versions visible in README.
 - Add verification coverage when adding a new skill, output format, or source type.
-

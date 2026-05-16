@@ -49,7 +49,7 @@ node skills/taosecho-etl-shared/scripts/verify-taosecho-etl-skills.js
 Expected result:
 
 ```text
-taosecho etl skill verification passed: 473/473
+taosecho etl skill verification passed: 476/476
 ```
 
 ## Design

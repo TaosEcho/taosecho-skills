@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-05-15
+
+- Added repository and package manifests for public skill metadata.
+- Added ADRs for monorepo packaging, normalize-first ETL, host-neutral design, and harness state-first setup.
+- Added out-of-scope and release, sensitive-content, maintenance, ETL, and harness checklists.
+- Added TaosEcho ETL report Markdown templates and a report validation script.
+- Added `scripts/verify-repo.js` and wired it into CI.
+
 ## 2026-05-12
 
 - Deleted standalone repositories from GitHub: `taosecho-etl-skills` and `harness-setup-skill`.

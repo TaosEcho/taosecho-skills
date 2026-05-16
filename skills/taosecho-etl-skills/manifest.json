@@ -1,0 +1,28 @@
+{
+  "name": "taosecho-etl-skills",
+  "version": "2.2.2",
+  "description": "Host-neutral TaosEcho product analysis skill pack using normalize-first ETL and state.md.",
+  "entry_skill": "taosecho-etl-product",
+  "shared_skill": "taosecho-etl-shared",
+  "compat": ["codex", "claude-code"],
+  "install_paths": {
+    "codex": "~/.codex/skills/taosecho-etl-*",
+    "claude-code": "~/.claude/skills/taosecho-etl-*"
+  },
+  "skills": [
+    "taosecho-etl-product",
+    "taosecho-etl-normalize",
+    "taosecho-etl-buy-reason",
+    "taosecho-etl-usage-scene",
+    "taosecho-etl-buy-concern",
+    "taosecho-etl-competitor-opportunity",
+    "taosecho-etl-product-definition",
+    "taosecho-etl-risk-check",
+    "taosecho-etl-page-trust",
+    "taosecho-etl-validation-plan",
+    "taosecho-etl-ops-feedback",
+    "taosecho-etl-dev-decision",
+    "taosecho-etl-report",
+    "taosecho-etl-shared"
+  ]
+}

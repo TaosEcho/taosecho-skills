@@ -20,6 +20,9 @@ jobs:
       - name: Check install script syntax
         run: bash -n scripts/install.sh
 
+      - name: Verify repository governance
+        run: node scripts/verify-repo.js
+
       - name: List installable skills
         run: ./scripts/install.sh --list
 

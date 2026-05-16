@@ -1,0 +1,27 @@
+{
+  "name": "taosecho-skills",
+  "version": "2026.05.12",
+  "description": "Canonical public monorepo for TaosEcho skill packs.",
+  "homepage": "https://github.com/TaosEcho/taosecho-skills",
+  "compat": ["codex", "claude-code"],
+  "packages": [
+    {
+      "id": "taosecho-etl-skills",
+      "name": "TaosEcho ETL Skills",
+      "version": "2.2.2",
+      "path": "skills/taosecho-etl-skills",
+      "entry_skill": "taosecho-etl-product",
+      "install_pack": "etl",
+      "description": "Normalize-first product analysis through state.md, analysis skills, and report generation."
+    },
+    {
+      "id": "harness-setup-skill",
+      "name": "Harness Setup Skill",
+      "version": "0.5.3",
+      "path": "skills/harness-setup-skill",
+      "entry_skill": "harness-setup",
+      "install_pack": "harness",
+      "description": "Durable task harness setup for long-running, high-risk, or multi-agent work."
+    }
+  ]
+}
