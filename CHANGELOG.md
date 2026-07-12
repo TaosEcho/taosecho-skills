@@ -1,5 +1,14 @@
 # Changelog
 
+## 2026-07-12
+
+- Updated TaosEcho ETL to `2.3.0`.
+- Replaced unconditional multi-skill queues with dynamic single-step routing.
+- Added canonical `workflow.next_action` and structured `workflow.latest_result` state.
+- Added skill-specific completion criteria to analysis, decision, and report workers.
+- Added routing regression scenarios for direct tasks, evidence blockers, goal switches, reports, and stop behavior.
+- Kept v2.2 `recommended_next` fields readable as compatibility inputs.
+
 ## 2026-05-15
 
 - Added repository and package manifests for public skill metadata.
