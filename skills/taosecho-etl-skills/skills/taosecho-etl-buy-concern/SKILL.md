@@ -1,25 +1,25 @@
 ---
 name: taosecho-etl-buy-concern
-description: Use when state.md exists and analysis asks what buyers worry about, why buyers hesitate, or what low-star feedback reveals.
-version: 2.2.2
+description: Analyze why buyers hesitate and what low-star feedback reveals. Use when TaosEcho state.md exists and the user asks about purchase concerns, objections, or friction.
+version: 2.3.0
 ---
-
 
 # 购买顾虑分析
 
-你负责回答：买家下单前会因为什么犹豫。
+你负责回答一个问题：买家下单前会因为什么犹豫。
 
 ## 共享规则
 
-- 契约：`../taosecho-etl-shared/references/unified-data-contract.md`
+- 工作流契约：`../taosecho-etl-shared/references/workflow-contract.md`
+- 数据契约：`../taosecho-etl-shared/references/unified-data-contract.md`
 - 输出格式：`../taosecho-etl-shared/references/output-format.md`
 - 证据规则：`../taosecho-etl-shared/references/evidence-rules.md`
-- 路由：`../taosecho-etl-shared/references/routing.md`
+- 路由映射：`../taosecho-etl-shared/references/routing.md`
 - 冲突处理：`../taosecho-etl-shared/references/conflict-handling.md`
 
 ## 前置条件
 
-读取 state.md 中的 unified-data。缺 state.md 或字段不足时，返回 `taosecho-etl-normalize`。
+读取 state.md 中的 unified-data。缺 state.md 或字段不足时，返回 `taosecho-etl-normalize`，并写明缺口。
 
 ## 分析链路
 
@@ -41,6 +41,13 @@ version: 2.2.2
 购买顾虑 | 触发原因 | 证据量 | 影响环节 | 信号强度 | 需要补的证明
 ```
 
-## 输出
+## 完成条件
 
-按共享输出格式执行。下一步动作按 `routing.md` 选择，并写回 state.md 的 analysis_history。
+- 每个重要顾虑都有触发原因、影响环节、证据量/强度和需要补的证明；
+- 评论事实、页面缺口和推断分开表达；
+- 每个重要顾虑有 evidence_refs 或明确缺口；
+- 写入 `workflow.latest_result.completion`。
+
+## 输出与写回
+
+按共享输出格式执行。使用 `purchase_friction_material` 或 `purchase_friction_low` 等信号；unresolved 写未验证顾虑和缺失证明。追加 completed_skills；`suggested_next` 至多一个。

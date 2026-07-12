@@ -1,22 +1,21 @@
 ---
 name: taosecho-etl-report
-description: Use when state.md contains TaosEcho ETL analysis results and the user wants a complete report (Markdown by default, optional PDF/DOCX/HTML) for delivery, archival, or stakeholder review.
-version: 2.2.2
+description: Generate a complete TaosEcho product-analysis report from state.md and analysis_history. Use for delivery, archival, stakeholder review, or Markdown/PDF/DOCX/HTML output.
+version: 2.3.0
 ---
 
 # TaosEcho ETL 报告生成
 
-你负责把 state.md 里已完成的 TaosEcho 分析整合成完整报告。
-只读取 state.md 和 analysis_history；报告生成阶段保持状态驱动。
-默认输出 Markdown；其他格式（PDF / DOCX / HTML）按 host 已有 skill 可选转换。
+你负责把 state.md 中已完成的分析整合成可交付报告。报告阶段只消费 state.md、workflow 和 analysis_history；不重新抓取数据，不补造未完成分析。
 
 ## 共享规则
 
+- 工作流契约：`../taosecho-etl-shared/references/workflow-contract.md`
 - 输出格式：`../taosecho-etl-shared/references/output-format.md`
 - 状态文件：`../taosecho-etl-shared/references/intake-state.md`
 - 决策算法：`../taosecho-etl-shared/references/decision-algorithm.md`
 - 证据规则：`../taosecho-etl-shared/references/evidence-rules.md`
-- 路由：`../taosecho-etl-shared/references/routing.md`
+- 路由映射：`../taosecho-etl-shared/references/routing.md`
 - 决策摘要：`references/decision-summary.md`
 - 报告模板：`references/report-templates.md`
 - 格式探测：`references/format-detection.md`
@@ -32,30 +31,27 @@ version: 2.2.2
 
 ## 模式选择
 
-询问用户（host-neutral 自然语言）：
+优先使用用户已经表达的信息：
 
-```text
-我可以为你生成产品判断报告。请选择模式：
-1. brief：决策摘要 + 关键 3 张表，2-3 页，适合快速过目
-2. standard：完整分析 + 阶段判断，8-12 页，适合日常归档
-3. full：含证据缺口 + state.md 全字段，15-25 页，适合投入前复核
-默认 standard。
-```
+- 明确指定 brief / standard / full → 使用指定模式。
+- “简单点、快速过目”或 `workflow.response_mode=brief` → brief。
+- 未指定模式 → 选择当前证据允许的最高模式，但默认最高到 standard。
+- full 仅在用户明确需要投入前复核、全字段或完整证据缺口时使用。
 
-模式与已完成分析项数的对应关系：
-- 完成 >=1 项 -> 可生成 brief
-- 完成 >=4 项 -> 可生成 standard
-- 完成 >=6 项 -> 可生成 full
+模式门槛：
 
-未达对应阈值时，告知用户“先跑 X 再生成 Y 模式”，并给出可立即生成的最高模式。
+- 完成 >=1 项 → brief
+- 完成 >=4 项 → standard
+- 完成 >=6 项 → full
+
+指定模式未达门槛时，说明缺少哪些分析，并立即生成当前可用的最高模式；只有用户明确要求先补齐时，才返回一个当前缺失分析作为 next action。
 
 ## 报告结构
 
-第 1 页：决策摘要（按 `decision-summary.md` 强约束生成）
-- 这是最重要的部分。
-- 看完第一页用户必须能直接回答：做不做 / 第一步做什么 / 还缺什么。
+第 1 页是决策摘要。看完必须能回答：做不做、当前第一步、还缺什么。
 
-后续章节：按已完成 skill 自动生成
+后续章节按 completed_skills 生成：
+
 - 数据基础（必出）
 - 需求理解（buy-reason / usage-scene / buy-concern）
 - 竞品与机会（competitor-opportunity）
@@ -64,39 +60,41 @@ version: 2.2.2
 - 页面与运营（page-trust / ops-feedback）
 - 阶段判断（dev-decision）
 
-未完成的章节标“该项分析未完成，建议先跑 X”，保持章节可追踪。
+未完成章节写“该项分析未完成”，并说明建议数据；不生成替代结论。
 
-## 模板使用
+## 模板与校验
 
-- brief 模式优先读取 `templates/brief-report.md`。
-- standard 模式优先读取 `templates/standard-report.md`。
-- full 模式优先读取 `templates/full-report.md`。
-- 模板里的 `{placeholder}` 必须用 state.md 和 analysis_history 的真实字段替换。
-- 生成 Markdown 后，如文件系统可用，运行：
+- brief 使用 `templates/brief-report.md`。
+- standard 使用 `templates/standard-report.md`。
+- full 使用 `templates/full-report.md`。
+- 所有 `{placeholder}` 用 state.md 和 analysis_history 的真实字段替换。
+- 文件系统可用时运行：
 
 ```bash
 node scripts/validate-report.js "tasks/YYYYMMDD-{product.id}/{mode}-report-{date}.md"
 ```
 
-校验失败时先修报告，再交付路径。
+校验失败先修复报告。
 
 ## 输出格式
 
-默认产出 Markdown 文件：
+默认生成：
 
 ```text
 tasks/YYYYMMDD-{product.id}/{mode}-report-{date}.md
 ```
 
-按 `format-detection.md` 探测 host 是否有以下 skill：
-- 检测到 `make-pdf` 时，询问是否同时生成 PDF。
-- 检测到 `docx` 时，询问是否同时生成 DOCX。
-- 检测到 `baoyu-markdown-to-html` 或类似 markdown-to-html skill 时，询问是否同时生成 HTML。
+Markdown 是保证输出。检测到可用 PDF / DOCX / HTML 转换 skill 且用户需要时，再做可选转换；host 专属能力不是前置依赖。
 
-任何外部 skill 都未检测到时，仅产出 Markdown，并在输出里给出 Markdown 文件路径。
+## 完成条件
 
-## 调用边界
+- 报告文件已生成；
+- 第 1 页包含阶段判断、当前动作、证据缺口和主要风险；
+- 所有已完成分析都有对应章节；
+- 所有未完成分析都明确标注，没有补造；
+- 可用校验已通过；
+- 写入 `workflow.latest_result.completion`，并将当前动作设为一个交付后动作或 stop。
 
-- 报告阶段只消费 state.md。
-- 数据获取 MCP、平台工具、问询工具、格式转换 skill 都是可选外部能力。
-- 询问用户走 host-neutral 自然语言。
+## 写回
+
+使用 `report_ready` 或 `report_blocked_by_missing_analysis` 信号。追加 completed_skills；报告已满足用户请求时建议 stop，入口写入 `workflow.status=satisfied`。
