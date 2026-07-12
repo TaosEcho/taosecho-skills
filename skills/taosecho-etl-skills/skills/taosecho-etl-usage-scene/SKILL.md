@@ -1,25 +1,25 @@
 ---
 name: taosecho-etl-usage-scene
-description: Use when state.md exists and product analysis asks where or how buyers use a product across platform or manual data sources.
-version: 2.2.2
+description: Analyze where and how buyers use a product. Use when TaosEcho state.md exists and the user asks about usage scenes, actions, environments, or constraints.
+version: 2.3.0
 ---
-
 
 # 使用场景分析
 
-你负责回答：买家在哪里用、怎么用。
+你负责回答一个问题：买家在哪里用、怎么用。
 
 ## 共享规则
 
-- 契约：`../taosecho-etl-shared/references/unified-data-contract.md`
+- 工作流契约：`../taosecho-etl-shared/references/workflow-contract.md`
+- 数据契约：`../taosecho-etl-shared/references/unified-data-contract.md`
 - 输出格式：`../taosecho-etl-shared/references/output-format.md`
 - 证据规则：`../taosecho-etl-shared/references/evidence-rules.md`
-- 路由：`../taosecho-etl-shared/references/routing.md`
+- 路由映射：`../taosecho-etl-shared/references/routing.md`
 - 冲突处理：`../taosecho-etl-shared/references/conflict-handling.md`
 
 ## 前置条件
 
-读取 state.md 中的 unified-data。缺 state.md 或字段不足时，返回 `taosecho-etl-normalize`。
+读取 state.md 中的 unified-data。缺 state.md 或字段不足时，返回 `taosecho-etl-normalize`，并写明缺口。
 
 ## 分析链路
 
@@ -41,6 +41,13 @@ version: 2.2.2
 使用场景 | 使用动作 | 环境限制 | 证据量 | 信号强度 | 产品影响
 ```
 
-## 输出
+## 完成条件
 
-按共享输出格式执行。下一步动作按 `routing.md` 选择，并写回 state.md 的 analysis_history。
+- 每个重要场景都有具体动作、环境限制、证据量/强度和产品影响；
+- 把相似场景合并，把相互冲突的使用条件分开；
+- 每个重要场景有 evidence_refs 或明确缺口；
+- 写入 `workflow.latest_result.completion`。
+
+## 输出与写回
+
+按共享输出格式执行。使用 `use_context_clear` 或 `use_context_unclear` 等信号；unresolved 写缺失环境、动作或样本。追加 completed_skills；`suggested_next` 至多一个，由入口复核。

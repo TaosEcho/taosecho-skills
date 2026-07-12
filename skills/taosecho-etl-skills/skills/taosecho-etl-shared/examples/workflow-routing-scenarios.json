@@ -1,0 +1,79 @@
+[
+  {
+    "id": "new-raw-data-enters-normalize",
+    "current_input": "用户粘贴了一批新评论并要求分析",
+    "state": {"has_state": false, "has_new_raw_data": true},
+    "expected_action": {"type": "skill", "target": "taosecho-etl-normalize"},
+    "required_tokens": ["new raw data", "taosecho-etl-normalize"]
+  },
+  {
+    "id": "absolute-decision-without-object-asks-once",
+    "current_input": "直接告诉我这个产品能不能做",
+    "state": {"has_state": false, "has_concrete_product": false},
+    "expected_action": {"type": "ask", "target": null},
+    "required_tokens": ["First-Turn Pressure Rules", "最快路径"]
+  },
+  {
+    "id": "explicit-buy-reason-routes-directly",
+    "current_input": "分析购买原因",
+    "state": {"has_state": true, "explicit_target": "taosecho-etl-buy-reason"},
+    "expected_action": {"type": "skill", "target": "taosecho-etl-buy-reason"},
+    "required_tokens": ["Direct Task", "taosecho-etl-buy-reason"]
+  },
+  {
+    "id": "latest-use-gap-routes-to-usage-scene",
+    "current_input": "继续",
+    "state": {"has_state": true, "latest_signals": ["use_context_unclear"]},
+    "expected_action": {"type": "skill", "target": "taosecho-etl-usage-scene"},
+    "required_tokens": ["use_context_unclear", "taosecho-etl-usage-scene"]
+  },
+  {
+    "id": "clue-level-decision-stops-at-validation",
+    "current_input": "判断是否值得做",
+    "state": {"has_state": true, "requested_outcome": "decision", "evidence_level": "线索级"},
+    "expected_action": {"type": "skill", "target": "taosecho-etl-validation-plan"},
+    "required_tokens": ["evidence blocker", "taosecho-etl-validation-plan"]
+  },
+  {
+    "id": "decision-ready-routes-to-stage-decision",
+    "current_input": "现在给阶段判断",
+    "state": {"has_state": true, "requested_outcome": "decision", "evidence_level": "判断级", "latest_signals": ["decision_ready"]},
+    "expected_action": {"type": "skill", "target": "taosecho-etl-dev-decision"},
+    "required_tokens": ["decision_ready", "taosecho-etl-dev-decision"]
+  },
+  {
+    "id": "full-analysis-redecides-after-demand",
+    "current_input": "完整看一轮",
+    "state": {"has_state": true, "requested_outcome": "full-analysis", "completed_skills": ["taosecho-etl-buy-reason"], "latest_signals": ["demand_signal_strong"]},
+    "expected_action": {"type": "skill", "target": "taosecho-etl-usage-scene"},
+    "required_tokens": ["Default Exploration Tie-Breaker", "usage-scene"]
+  },
+  {
+    "id": "risk-blocker-routes-to-validation",
+    "current_input": "下一步",
+    "state": {"has_state": true, "latest_signals": ["risk_blocker"]},
+    "expected_action": {"type": "skill", "target": "taosecho-etl-validation-plan"},
+    "required_tokens": ["risk_blocker", "validation-plan"]
+  },
+  {
+    "id": "report-ready-routes-to-report",
+    "current_input": "整理成报告",
+    "state": {"has_state": true, "requested_outcome": "report", "completed_skill_count": 4, "latest_signals": ["report_ready"]},
+    "expected_action": {"type": "skill", "target": "taosecho-etl-report"},
+    "required_tokens": ["report_ready", "taosecho-etl-report"]
+  },
+  {
+    "id": "goal-switch-overrides-legacy-queue",
+    "current_input": "先看页面转化",
+    "state": {"has_state": true, "explicit_target": "taosecho-etl-page-trust", "legacy_queue": ["taosecho-etl-buy-reason", "taosecho-etl-usage-scene"]},
+    "expected_action": {"type": "skill", "target": "taosecho-etl-page-trust"},
+    "required_tokens": ["latest explicit goal", "旧队列不能覆盖新用户意图"]
+  },
+  {
+    "id": "bounded-request-satisfied-stops",
+    "current_input": "购买原因看完就行",
+    "state": {"has_state": true, "requested_outcome": "buy-reason", "completed_skills": ["taosecho-etl-buy-reason"]},
+    "expected_action": {"type": "stop", "target": null},
+    "required_tokens": ["requested outcome is satisfied", "next_action.type=stop"]
+  }
+]

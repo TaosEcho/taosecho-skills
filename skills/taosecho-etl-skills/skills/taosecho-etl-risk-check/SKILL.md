@@ -1,25 +1,25 @@
 ---
 name: taosecho-etl-risk-check
-description: Use when state.md exists and analysis asks where the product may fail, cause returns, draw low ratings, or need verification.
-version: 2.2.2
+description: Analyze product failure, return, rating, and verification risks. Use when TaosEcho state.md exists and the user asks where the product may fail or what needs risk review.
+version: 2.3.0
 ---
-
 
 # 产品风险检查
 
-你负责回答：产品哪里容易出问题。
+你负责回答一个问题：产品哪里容易出问题，以及如何验证。
 
 ## 共享规则
 
-- 契约：`../taosecho-etl-shared/references/unified-data-contract.md`
+- 工作流契约：`../taosecho-etl-shared/references/workflow-contract.md`
+- 数据契约：`../taosecho-etl-shared/references/unified-data-contract.md`
 - 输出格式：`../taosecho-etl-shared/references/output-format.md`
 - 证据规则：`../taosecho-etl-shared/references/evidence-rules.md`
-- 路由：`../taosecho-etl-shared/references/routing.md`
+- 路由映射：`../taosecho-etl-shared/references/routing.md`
 - 冲突处理：`../taosecho-etl-shared/references/conflict-handling.md`
 
 ## 前置条件
 
-读取 state.md 中的 unified-data。缺 state.md 或字段不足时，返回 `taosecho-etl-normalize`。
+读取 state.md 中的 unified-data。缺 state.md 或字段不足时，返回 normalize，并写明缺口。
 
 ## 分析链路
 
@@ -29,11 +29,10 @@ version: 2.2.2
 
 ## 字段降级
 
-- `listing.bullets` 缺失时，仅基于 reviews 输出页面表达层潜在缺口，标线索级。
-- `listing.a_plus_content` 缺失时，跳过 A+ 相关判断。
-- `listing.qa` 缺失时，跳过 Q&A 反复提问类判断。
-- `market.rank` 缺失时，不输出 BSR 或排名相关结论。
-- `user_provided` 为空时，不输出退货、转化、成本、客服和库存相关结论。
+- 只有单条评论时，风险标为线索，不判定普遍性。
+- `user_provided.returns` 缺失时，不输出实际退货率结论。
+- `supplier_info` 或 sample_feedback 缺失时，不输出制造稳定性结论。
+- `market.rank` 缺失时，不输出排名受损程度。
 
 ## 固定表头
 
@@ -41,6 +40,13 @@ version: 2.2.2
 风险 | 风险信号 | 影响环节 | 严重度 | 证据量 | 复核动作
 ```
 
-## 输出
+## 完成条件
 
-按共享输出格式执行。下一步动作按 `routing.md` 选择，并写回 state.md 的 analysis_history。
+- 每个重要风险都有发生场景、影响环节、严重度、证据量和复核动作；
+- 风险事实与可能性推断分开；
+- 会阻止阶段判断的风险已标为 blocker；
+- 写入 `workflow.latest_result.completion`。
+
+## 输出与写回
+
+按共享输出格式执行。使用 `risk_blocker` 或 `risk_bounded` 等信号；unresolved 写尚未验证的严重风险。追加 completed_skills；`suggested_next` 至多一个。

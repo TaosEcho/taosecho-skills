@@ -1,5 +1,15 @@
 # TaosEcho ETL Skill Pack Changelog
 
+## 2.3.0
+
+- Replaced fixed multi-skill queues with “one current step, then a fresh decision”.
+- Added `workflow.requested_outcome`, canonical `workflow.next_action`, and compact `workflow.latest_result` state.
+- Separated the entry router from bounded worker responsibilities.
+- Added skill-specific completion criteria and evidence-reference writeback for every worker.
+- Added routing precedence, result signals, stop rules, and v2.2 compatibility behavior.
+- Improved report mode selection by reusing existing user intent instead of always asking another question.
+- Replaced phrase-heavy routing verification with workflow contract checks and scenario fixtures.
+
 ## 2.2.2
 
 - Treat natural-language product descriptions as valid spoken input and route them into normalize as clue-level evidence.

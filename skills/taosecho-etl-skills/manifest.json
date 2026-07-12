@@ -1,7 +1,7 @@
 {
   "name": "taosecho-etl-skills",
-  "version": "2.2.2",
-  "description": "Host-neutral TaosEcho product analysis skill pack using normalize-first ETL and state.md.",
+  "version": "2.3.0",
+  "description": "Host-neutral TaosEcho product analysis with normalize-first ETL and dynamic single-step routing through state.md.",
   "entry_skill": "taosecho-etl-product",
   "shared_skill": "taosecho-etl-shared",
   "compat": ["codex", "claude-code"],
